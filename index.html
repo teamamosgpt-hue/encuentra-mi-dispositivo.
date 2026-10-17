@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a1020" />
+  <meta name="description" content="Portal seguro para acceder a las herramientas oficiales de recuperación de dispositivos Android y Apple." />
+  <title>Encuentra Mi Dispositivo · Portal Seguro</title>
+  <style>
+    :root { color-scheme: dark; --bg:#070d19; --panel:#101b2c; --panel2:#152237; --line:#29394f; --text:#edf5ff; --sub:#afc0d5; --accent:#63b3ff; --purple:#8d83ff; --yellow:#f5bf70; --red:#f58a97; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:radial-gradient(circle at 75% 5%,#14264a 0%,transparent 34%),radial-gradient(circle at 5% 55%,#161c32 0%,transparent 35%),var(--bg); color:var(--text); min-height:100vh; }
+    a { color:inherit; }
+    button, input { font:inherit; }
+    .shell { max-width:1120px; margin:auto; padding:0 28px; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:28px 0; gap:16px; }
+    .brand { display:inline-flex; align-items:center; gap:11px; font-weight:780; letter-spacing:-.035em; font-size:1.05rem; }
+    .brandmark { width:39px; height:39px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(140deg,var(--accent),var(--purple)); color:#071428; }
+    .tag { padding:8px 12px; border:1px solid #31435c; border-radius:100px; font-size:.75rem; font-weight:700; letter-spacing:.06em; color:#c5d4e7; }
+    .hero { padding:72px 0 40px; display:grid; grid-template-columns:1.12fr .88fr; gap:40px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:9px; font-weight:750; text-transform:uppercase; font-size:.75rem; letter-spacing:.13em; color:#90c7ff; }
+    .dot { background:#72bbfb; height:8px; width:8px; border-radius:50%; box-shadow:0 0 0 5px #6dbeff1c; }
+    h1 { margin:18px 0 20px; letter-spacing:-.065em; font-size:clamp(2.55rem,5.8vw,4.8rem); line-height:1.075; }
+    h1 span { color:#91c6ff; }
+    .hero p { max-width:580px; color:var(--sub); font-size:1.07rem; line-height:1.8; }
+    .hero p strong { color:#e8f4ff; }
+    .trust { display:flex; flex-wrap:wrap; gap:13px; padding-top:18px; }
+    .trust div { display:flex; align-items:center; gap:8px; padding:10px 12px; background:#15223798; border:1px solid #30445e; border-radius:10px; font-size:.85rem; color:#c7d8ee; }
+    .phone-area { height:405px; display:grid; place-items:center; position:relative; }
+    .orb { width:355px; height:355px; border-radius:50%; position:absolute; background:radial-gradient(circle,#287ad62f,transparent 66%); border:1px solid #3067ac29; }
+    .orb:before,.orb:after { content:""; display:block; position:absolute; inset:38px; border-radius:50%; border:1px dashed #4988c83b; }
+    .orb:after { inset:85px; }
+    .phone { position:relative; width:202px; height:370px; background:linear-gradient(145deg,#15243a,#09101e); border:6px solid #34465e; border-radius:38px; box-shadow:0 25px 65px #0009, inset 0 0 0 2px #6885a028; padding:18px 14px; display:flex; flex-direction:column; align-items:center; }
+    .speaker { height:5px; width:56px; border-radius:100px; background:#354d68; margin:0 0 45px; }
+    .radar { display:grid; place-items:center; width:104px; height:104px; border-radius:50%; border:1px solid #66afff5c; box-shadow:0 0 0 17px #387ddb10, 0 0 0 34px #387ddb0c; background:#2e6ac31f; }
+    .phone-title { font-size:.96rem; font-weight:750; margin:51px 0 6px; }
+    .phone-sub { font-size:.68rem; color:#9fb4ce; text-align:center; line-height:1.6; }
+    .pill { margin-top:auto; background:#1c3c61; border:1px solid #376693; border-radius:50px; padding:7px 11px; font-size:.68rem; color:#b7daff; }
+    .floating { position:absolute; background:#14243be8; backdrop-filter:blur(8px); border:1px solid #375475; border-radius:12px; padding:13px 15px; font-size:.76rem; box-shadow:0 14px 34px #0007; }
+    .floating b { display:block; color:#f0f8ff; font-size:.86rem; margin-top:4px; }
+    .float-a { left:0; top:77px; }
+    .float-b { right:0; bottom:74px; }
+    .panel { border:1px solid #344762; background:linear-gradient(145deg,#14233aa8,#111b2fd9); border-radius:25px; box-shadow:0 32px 65px #0004; padding:32px; margin:26px 0 35px; }
+    .panel-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+    h2 { font-size:1.7rem; letter-spacing:-.04em; margin:0 0 8px; }
+    .panel-intro { color:var(--sub); margin:0 0 26px; line-height:1.65; }
+    .step { font-weight:750; color:#90b8de; font-size:.8rem; margin:25px 0 12px; display:block; }
+    .platforms { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .platform { text-align:left; border:1px solid #35485f; color:var(--text); padding:16px 18px; background:#101e31; border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:13px; transition:.18s ease; }
+    .platform:hover,.action:hover { border-color:#6b9bc8; transform:translateY(-1px); }
+    .platform.active { background:#163052; border-color:var(--accent); box-shadow:0 0 0 2px #63b3ff23; }
+    .platform .platform-logo { display:grid; place-items:center; font-size:1.4rem; width:38px; height:38px; border-radius:10px; background:#ffffff10; }
+    .platform .name { display:block; font-weight:740; }
+    .platform .detail { display:block; margin-top:3px; color:#a9bfd7; font-size:.76rem; }
+    label[for="model"] { display:block; font-size:.83rem; font-weight:700; margin-bottom:10px; color:#cbdcf0; }
+    .device-input { width:100%; border:1px solid #3a516a; color:#eaf4ff; border-radius:12px; padding:15px 17px; background:#0c1626; outline:none; transition:border-color .2s; }
+    .device-input:focus { border-color:#83baf1; box-shadow:0 0 0 3px #63b3ff26; }
+    .hint { font-size:.77rem; color:#a0b3cb; margin:9px 0 0; }
+    .actions { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+    .action { text-align:left; color:var(--text); cursor:pointer; background:#0e1b2e; border:1px solid #32465e; border-radius:14px; padding:18px 14px; min-height:138px; transition:.18s ease; }
+    .action.active { border-color:#75bcff; background:#162f50; box-shadow:0 0 0 2px #75bcff19; }
+    .action .glyph { font-size:1.5rem; margin-bottom:14px; display:block; }
+    .action b { display:block; font-size:.91rem; margin-bottom:6px; }
+    .action small { font-size:.75rem; color:#afc3dc; line-height:1.4; display:block; }
+    .action[data-action="erase"] .glyph { color:var(--red); }
+    .result { margin-top:20px; background:#0a1628; border:1px solid #2e435b; border-radius:14px; padding:19px 21px; }
+    .result h3 { font-size:1rem; margin:0 0 7px; }
+    .result p { color:#aebfd5; margin:0; line-height:1.65; font-size:.89rem; }
+    .cta-line { margin-top:23px; display:flex; align-items:center; flex-wrap:wrap; gap:18px; }
+    .cta { display:inline-flex; align-items:center; gap:11px; justify-content:center; background:linear-gradient(120deg,#66baff,#8eabff); color:#061424; text-decoration:none; font-weight:800; border-radius:12px; padding:15px 22px; min-height:52px; transition:filter .2s ease,transform .2s ease; }
+    .cta:hover { filter:brightness(1.12); transform:translateY(-1px); }
+    .cta:focus-visible,.platform:focus-visible,.action:focus-visible { outline:3px solid #bddeff; outline-offset:4px; }
+    .small-note { color:#9eb2c9; font-size:.8rem; line-height:1.5; max-width:340px; }
+    .security { display:flex; gap:13px; padding:18px 20px; background:#40331c4d; border:1px solid #9c77436e; border-radius:14px; margin-bottom:54px; color:#f6dbb1; }
+    .security p { margin:4px 0 0; color:#d4c5ad; font-size:.88rem; line-height:1.6; }
+    .how { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:22px 0 68px; }
+    .how article { background:#111d2c9e; border:1px solid #263b54; border-radius:16px; padding:24px; }
+    .how article span { font-size:.75rem; font-weight:900; letter-spacing:.08em; color:#85bdfa; }
+    .how h3 { margin:14px 0 8px; font-size:1.05rem; }
+    .how p { font-size:.86rem; line-height:1.7; color:var(--sub); margin:0; }
+    footer { border-top:1px solid #2a3d54; padding:24px 0 40px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:15px; color:#a0b5c9; font-size:.79rem; line-height:1.7; }
+    footer a { color:#add5ff; }
+    @media(max-width:800px){ .hero{grid-template-columns:1fr;padding-top:35px;gap:0} .phone-area{height:310px;transform:scale(.78);margin:-30px 0;} .actions{grid-template-columns:repeat(2,1fr)} .how{grid-template-columns:1fr} .panel{padding:22px} }
+    @media(max-width:520px){ .shell{padding:0 16px} header{padding:20px 0}.tag{display:none}.hero{padding-top:20px} .hero p{font-size:.98rem} .platforms{grid-template-columns:1fr} .panel-head{display:block}.actions{gap:9px}.action{padding:14px 12px;min-height:130px}.security{margin-bottom:42px}.phone-area{margin:-38px 0 -13px}.cta{width:100%;text-align:center} }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="brandmark" aria-hidden="true">◎</div> Encuentra Mi Dispositivo</div>
+      <div class="tag">PORTAL DE ACCESO SEGURO</div>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="headline">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Protege tus dispositivos</div>
+          <h1 id="headline">Tu dispositivo, <span>más seguro.</span></h1>
+          <p>Accede a las herramientas oficiales para <strong>localizar, hacer sonar, bloquear o borrar</strong> un dispositivo Android o Apple que te pertenece.</p>
+          <div class="trust"><div>✓ Sin pedir el PIN de desbloqueo</div><div>✓ Acceso oficial Google y Apple</div></div>
+        </div>
+        <div class="phone-area" aria-hidden="true">
+          <div class="orb"></div>
+          <div class="floating float-a">🔒 Protección<b>Autenticación oficial</b></div>
+          <div class="phone">
+            <div class="speaker"></div>
+            <div class="radar"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8dc8ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+            <div class="phone-title">Recuperación segura</div>
+            <div class="phone-sub">El proveedor verifica la propiedad del dispositivo</div>
+            <div class="pill">○ No conectado</div>
+          </div>
+          <div class="floating float-b">🛡️ Privacidad<b>No guardamos datos</b></div>
+        </div>
+      </section>
+      <section class="panel" aria-labelledby="main-title">
+        <div class="panel-head"><div><h2 id="main-title">Centro de recuperación</h2><p class="panel-intro">Configura tu búsqueda y continúa en la plataforma del fabricante.</p></div></div>
+        <span class="step">01 — SELECCIONA EL SISTEMA</span>
+        <div class="platforms" role="group" aria-label="Sistema operativo">
+          <button type="button" class="platform active" data-platform="android" aria-pressed="true"><span class="platform-logo" aria-hidden="true">◉</span><span><span class="name">Android</span><span class="detail">Samsung, Motorola, Xiaomi, Pixel y más</span></span></button>
+          <button type="button" class="platform" data-platform="apple" aria-pressed="false"><span class="platform-logo" aria-hidden="true">◈</span><span><span class="name">Apple</span><span class="detail">iPhone y iPad</span></span></button>
+        </div>
+        <span class="step">02 — IDENTIFICA TU EQUIPO</span>
+        <label for="model">Nombre o modelo del dispositivo (opcional)</label>
+        <input id="model" class="device-input" type="text" maxlength="70" autocomplete="off" placeholder="Ej.: Samsung Galaxy A54" />
+        <p class="hint">El modelo es solo una referencia para ti. No se envía al servicio ni permite localizarlo por sí mismo.</p>
+        <span class="step">03 — ELIGE LA ACCIÓN</span>
+        <div class="actions" role="group" aria-label="Acción de recuperación">
+          <button type="button" class="action active" data-action="locate" aria-pressed="true"><span class="glyph" aria-hidden="true">⌖</span><b>Localizar</b><small>Ver ubicación disponible</small></button>
+          <button type="button" class="action" data-action="sound" aria-pressed="false"><span class="glyph" aria-hidden="true">◖))</span><b>Hacer sonar</b><small>Buscarlo si está cerca</small></button>
+          <button type="button" class="action" data-action="lock" aria-pressed="false"><span class="glyph" aria-hidden="true">▣</span><b>Bloquear</b><small>Proteger los datos</small></button>
+          <button type="button" class="action" data-action="erase" aria-pressed="false"><span class="glyph" aria-hidden="true">⊗</span><b>Borrar datos</b><small>Opción irreversible</small></button>
+        </div>
+        <div class="result" aria-live="polite">
+          <h3 id="action-title">Localizar tu equipo</h3>
+          <p id="action-desc">Se abrirá Localizador de Google. Inicia sesión con la cuenta vinculada al dispositivo y selecciónalo para consultar la ubicación disponible.</p>
+        </div>
+        <div class="cta-line">
+          <a class="cta" id="continue" href="https://android.com/find" target="_blank" rel="noopener noreferrer">Abrir Localizador de Google ↗</a>
+          <div class="small-note" id="provider-note">La operación se realiza únicamente en el sitio oficial, después de verificar tu cuenta.</div>
+        </div>
+      </section>
+      <aside class="security" aria-label="Aviso de seguridad"><span aria-hidden="true">⚠️</span><div><b>Tu PIN de desbloqueo es privado.</b><p>No lo escribas en páginas de terceros. Esta web no solicita contraseñas, códigos ni datos bancarios. La cuenta del propietario y la función de búsqueda previamente activada son necesarias para muchas acciones remotas.</p></div></aside>
+      <h2>Así funciona</h2>
+      <div class="how">
+        <article><span>01 / ELEGIR</span><h3>Selecciona Android o Apple</h3><p>Escoge el sistema operativo del teléfono o tablet que te pertenece.</p></article>
+        <article><span>02 / CONTINUAR</span><h3>Abre el servicio oficial</h3><p>Te enviaremos al servicio de Google o iCloud. Esta web no accede a tu cuenta.</p></article>
+        <article><span>03 / PROTEGER</span><h3>Autoriza la acción</h3><p>Inicia sesión, selecciona el dispositivo y elige allí localizar, sonar, bloquear o borrar, según disponibilidad.</p></article>
+      </div>
+    </main>
+    <footer>
+      <div>© <span id="year"></span> Encuentra Mi Dispositivo · Portal independiente no afiliado a Google o Apple.</div>
+      <div>Servicios oficiales: <a href="https://android.com/find" target="_blank" rel="noopener noreferrer">Google Localizador</a> · <a href="https://www.icloud.com/find/" target="_blank" rel="noopener noreferrer">Apple Encontrar</a></div>
+    </footer>
+  </div>
+  <script>
+    'use strict';
+    const services = {
+      android: { name: 'Localizador de Google', url: 'https://android.com/find', account: 'la cuenta de Google vinculada al equipo' },
+      apple: { name: 'Encontrar en iCloud', url: 'https://www.icloud.com/find/', account: 'la cuenta de Apple vinculada al equipo' }
+    };
+    const descriptions = {
+      locate: { title: 'Localizar tu equipo', body: 'Inicia sesión con {account}, elige el dispositivo y consulta su ubicación disponible.' },
+      sound: { title: 'Hacer sonar tu equipo', body: 'Inicia sesión con {account}, selecciona el dispositivo y usa la función «Reproducir sonido» si está disponible.' },
+      lock: { title: 'Proteger tu equipo', body: 'Inicia sesión con {account}, selecciona el dispositivo y activa «Marcar como perdido» o «Modo perdido», según el proveedor.' },
+      erase: { title: 'Borrar los datos de tu equipo', body: '¡Atención! El borrado remoto puede ser irreversible. Inicia sesión con {account}, selecciona el dispositivo y revisa detenidamente la opción de restablecimiento antes de confirmarla.' }
+    };
+    let platform = 'android';
+    let action = 'locate';
+    const button = document.getElementById('continue');
+    function update() {
+      document.querySelectorAll('[data-platform]').forEach(el => {
+        const active = el.dataset.platform === platform;
+        el.classList.toggle('active',active); el.setAttribute('aria-pressed',String(active));
+      });
+      document.querySelectorAll('[data-action]').forEach(el => {
+        const active = el.dataset.action === action;
+        el.classList.toggle('active',active); el.setAttribute('aria-pressed',String(active));
+      });
+      const service = services[platform];
+      document.getElementById('action-title').textContent = descriptions[action].title;
+      document.getElementById('action-desc').textContent = descriptions[action].body.replace('{account}', service.account);
+      button.href = service.url;
+      button.textContent = 'Abrir ' + service.name + ' ↗';
+    }
+    document.querySelectorAll('[data-platform]').forEach(el => el.addEventListener('click', () => { platform=el.dataset.platform; update(); }));
+    document.querySelectorAll('[data-action]').forEach(el => el.addEventListener('click', () => { action=el.dataset.action; update(); }));
+    button.addEventListener('click', ev => {
+      if(action === 'erase' && !window.confirm('Vas a abrir el servicio oficial. El restablecimiento de fábrica puede borrar tus datos permanentemente. Esta página NO ejecutará el borrado. ¿Quieres continuar?')) ev.preventDefault();
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+    update();
+  </script>
+</body>
+</html>
